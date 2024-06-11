@@ -1,0 +1,25 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_coconut"
+        android:icon="@drawable/img_sushi"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_grill"
+        android:icon="@drawable/img_barbecue"
+        android:title="" />
+
+    <item
+        android:id="@+id/space"
+        android:icon="@android:color/transparent"
+        android:title="" />
+
+
+    <item
+        android:id="@+id/navigation_fish"
+        android:icon="@drawable/img_fish"
+        android:title="" />
+    <item
+        android:id="@+id/navigation_pizza"
+        android:icon="@drawable/img_pizza"
+        android:title="" />
+</menu>

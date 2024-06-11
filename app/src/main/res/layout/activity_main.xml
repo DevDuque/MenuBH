@@ -34,23 +34,19 @@
             android:id="@+id/title_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-
             android:layout_weight="1"
             android:layout_gravity="center"
             android:gravity="center"
-
             android:fontFamily="@font/poppins"
             android:text="@string/str_home"
             android:textSize="24sp"
             android:textAlignment="center"
-            android:textColor="@color/backgroundColor"
-            />
+            android:textColor="@color/backgroundColor" />
 
-        <ImageButton android:id="@+id/btn_descending"
-
+        <ImageButton
+            android:id="@+id/btn_descending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:padding="8dp"
             android:layout_gravity="center_vertical"
             android:src="@drawable/img_descending"
@@ -79,103 +75,60 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:fontFamily="@font/poppins"
             android:text="@string/str_empty"
             android:textColor="@color/text"
             android:textSize="20sp"
             android:textAlignment="center"
-
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp" />
 
         <TextView
             android:id="@+id/title_text_part2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/str_start"
-            android:textSize="20sp"
             android:fontFamily="@font/poppins"
-            android:textColor="@color/components"/>
+            android:text="@string/str_start"
+            android:textColor="@color/components"
+            android:textSize="20sp" />
     </LinearLayout>
 
     <!-- Footer -->
-    <FrameLayout
+    <!-- Bottom Navigation View -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/footer_frame"
-        android:layout_width="0dp"
+
+        app:menu="@menu/bottom_navigation_menu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/headerFooter"
+        android:layout_gravity="bottom"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
 
-        <!-- Linear Layout for other buttons -->
-        <LinearLayout
-            android:id="@+id/footer_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="8dp">
+        android:background="@color/headerFooter"
 
-            <ImageButton
-                android:id="@+id/btn_coconut"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/str_sushi"
-                android:padding="8dp"
-                android:src="@drawable/img_sushi" />
+        app:itemIconSize="45dp"
+        app:itemIconTint="@color/backgroundColor"
+        app:labelVisibilityMode="unlabeled"
+         />
 
-            <ImageButton
-                android:id="@+id/btn_grill"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/str_barbecue"
-                android:padding="8dp"
-                android:src="@drawable/img_barbecue" />
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-            <ImageButton
-                android:id="@+id/btn_fish"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/str_fish"
-                android:padding="8dp"
-                android:src="@drawable/img_fish" />
-
-            <ImageButton
-                android:id="@+id/btn_pizza"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:contentDescription="@string/str_pizza"
-                android:padding="8dp"
-                android:src="@drawable/img_pizza" />
-        </LinearLayout>
-
-        <!-- Star Button -->
-        <ImageButton
-            android:id="@+id/btn_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|top"
-            android:layout_marginTop="-24dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/str_star"
-            android:elevation="10dp"
-            android:padding="8dp"
-            android:src="@drawable/img_starbutton" />
-
-    </FrameLayout>
+    <!-- Star Button -->
+    <ImageButton
+        android:id="@+id/btn_star"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginBottom="36dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/str_star"
+        android:elevation="10dp"
+        android:padding="8dp"
+        android:src="@drawable/img_starbutton"
+        android:translationZ="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
