@@ -3,27 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".MainActivity"
-    android:background="@color/backgroundColor">
+    android:background="@color/backgroundColor" >
 
     <!-- Header -->
     <LinearLayout
         android:id="@+id/header_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+
         android:orientation="horizontal"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+
         android:background="@color/headerFooter">
 
         <ImageButton
             android:id="@+id/btn_ascending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:padding="8dp"
+
             android:layout_gravity="center_vertical"
             android:src="@drawable/img_ascending"
             android:contentDescription="@string/str_home"
@@ -32,11 +39,12 @@
         <!-- Title -->
         <TextView
             android:id="@+id/title_text"
+
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_gravity="center"
-            android:gravity="center"
+
             android:fontFamily="@font/poppins"
             android:text="@string/str_home"
             android:textSize="24sp"
@@ -47,8 +55,11 @@
             android:id="@+id/btn_descending"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:padding="8dp"
+
             android:layout_gravity="center_vertical"
+
             android:src="@drawable/img_descending"
             android:contentDescription="@string/str_home"
             android:background="@android:color/transparent" />
@@ -60,12 +71,15 @@
         android:id="@+id/img_div"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:orientation="vertical"
+
         app:layout_constraintTop_toBottomOf="@id/header_layout"
         app:layout_constraintBottom_toTopOf="@id/footer_frame"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:gravity="center">
+
+        android:gravity="center" >
 
         <ImageView
             android:layout_width="wrap_content"
@@ -73,14 +87,16 @@
             android:src="@drawable/img_emptyimage" />
 
         <TextView
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:fontFamily="@font/poppins"
+
             android:text="@string/str_empty"
             android:textColor="@color/text"
             android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_marginTop="8dp" />
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/title_text_part2"
@@ -93,11 +109,10 @@
     </LinearLayout>
 
     <!-- Footer -->
-    <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/footer_frame"
-
         app:menu="@menu/bottom_navigation_menu"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -114,21 +129,24 @@
          />
 
     <!-- Star Button -->
-    <ImageButton
-        android:id="@+id/btn_star"
+    <ImageButton android:id="@+id/btn_star"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
         android:layout_marginBottom="36dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/str_star"
-        android:elevation="10dp"
-        android:padding="8dp"
-        android:src="@drawable/img_starbutton"
-        android:translationZ="20dp"
+        android:layout_gravity="center_horizontal|top"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/str_star"
+
+        android:padding="8dp"
+        android:src="@drawable/img_starbutton"
+
+        android:translationZ="20dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
