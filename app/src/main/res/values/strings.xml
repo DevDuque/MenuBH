@@ -1,18 +1,44 @@
 <resources>
     <string name="app_name">MenuBH</string>
 
+    <!-- Telas -->
     <string name="str_home">Tela Inicial</string>
-
-    <!-- Categorias de Restaurantes -->
-    <string name="str_sushi"> Sushi </string>
-    <string name="str_barbecue"> Churrasco </string>
-
-    <string name="str_fish"> Frutos do Mar  </string>
-    <string name="str_pizza"> Pizza </string>
-
     <string name="str_star"> Favoritos </string>
+    <string name="str_star"> Add Restaurante </string>
 
-    <string name="str_empty"> Você ainda não registrou nenhum restaurante </string>
-    <string name="str_start"> Comece aqui! </string>
+        <!-- Categorias de Restaurantes -->
+        <string name="str_sushi"> Sushi </string>
+        <string name="str_barbecue"> Churrasco </string>
+
+        <string name="str_fish"> Frutos do Mar  </string>
+        <string name="str_pizza"> Pizza </string>
+
+    <!-- Elementos específicos -->
+    
+        <!-- Legenda da imagem de vazio -->
+        <string name="str_empty"> Você ainda não registrou nenhum restaurante </string>
+        <string name="str_start"> Comece aqui! </string>
+
+        <!-- Placeholders da addRestaurantesScreen -->
+        <string name="str_inputName"> Insira o Nome Do Restaurante </string>
+        <string name="str_inputAddress"> Insira o endereço do Restaurante </string>
+        <string name="str_inputSpecialty"> Adicione a especialidade do restaurante </string>
+        <string name="str_inputStars"> Dê avaliação para esse restaurante </string>
+
+        <string name="str_inputSubmit"> Confirmar </string>
+
+
+        <!-- Nomes de restaurantes fictícios para criação dos cards -->
+            <!-- Sushi -->
+            <string name="str_feijoadaSushi"> Feijoada de Sushi </string>
+
+            <!-- Churrasco -->
+            <string name="str_churrasCia"> Churras & Cia </string>
+
+            <!-- Pizza -->
+            <string name="pizzaroma"> Pizzaroma </string>
+
+            <!-- Frutos do Mar -->
+            <string name="brisaMar"> Brisa do Mar </string>
 
 </resources>
