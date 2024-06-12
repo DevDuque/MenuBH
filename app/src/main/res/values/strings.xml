@@ -21,9 +21,11 @@
 
         <!-- Placeholders da addRestaurantesScreen -->
         <string name="str_inputName"> Insira o Nome Do Restaurante </string>
-        <string name="str_inputAddress"> Insira o endereço do Restaurante </string>
-        <string name="str_inputSpecialty"> Adicione a especialidade do restaurante </string>
-        <string name="str_inputStars"> Dê avaliação para esse restaurante </string>
+        <string name="str_inputAddress"> Insira o Endereço Do Restaurante </string>
+        <string name="str_inputNumber"> Insira o Telefone Do Restaurante </string>
+        <string name="str_inputSpecialty"> Adicione a Especialidade Do Restaurante </string>
+        <string name="str_inputStars"> Dê avaliação Para Esse Restaurante </string>
+ 
 
         <string name="str_inputSubmit"> Confirmar </string>
 
