@@ -87,7 +87,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="TODO"
+            android:contentDescription="@string/str_empty"
             android:src="@drawable/img_emptyimage" />
 
         <TextView
@@ -103,13 +103,15 @@
             android:textAlignment="center" />
 
         <TextView
-            android:id="@+id/title_text_part2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+
             android:fontFamily="@font/poppins"
+
             android:text="@string/str_start"
+            android:textSize="20sp"
             android:textColor="@color/components"
-            android:textSize="20sp" />
+            />
     </LinearLayout>
 
     <!-- Footer -->
@@ -162,8 +164,6 @@
         android:contentDescription="@string/str_star"
         android:padding="8dp"
         android:src="@drawable/img_addbutton"
-
-        android:translationZ="20dp"
 
         app:layout_constraintBottom_toTopOf="@+id/footer_frame"
         app:layout_constraintEnd_toEndOf="parent"
