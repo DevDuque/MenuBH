@@ -4,7 +4,7 @@
     <!-- Telas -->
     <string name="str_home">Tela Inicial</string>
     <string name="str_star"> Favoritos </string>
-    <string name="str_star"> Add Restaurante </string>
+    <string name="str_addRestaurant"> Add Restaurante </string>
 
         <!-- Categorias de Restaurantes -->
         <string name="str_sushi"> Sushi </string>
@@ -34,7 +34,7 @@
             <string name="str_feijoadaSushi"> Feijoada de Sushi </string>
 
             <!-- Churrasco -->
-            <string name="str_churrasCia"> Churras & Cia </string>
+            <string name="str_churrasCia"> Churras &amp; Cia </string>
 
             <!-- Pizza -->
             <string name="pizzaroma"> Pizzaroma </string>
