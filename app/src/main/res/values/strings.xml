@@ -11,7 +11,14 @@
         <string name="str_barbecue"> Churrasco </string>
 
         <string name="str_fish"> Frutos do Mar  </string>
-        <string name="str_pizza"> Pizza </string>asd
+        <string name="str_pizza"> Pizza </string>
+
+        <string-array name="specialties">
+            <item>Sushi</item>
+            <item>Barbecue</item>
+            <item>Fish</item>
+            <item>Pizza</item>
+        </string-array>
 
     <!-- Elementos específicos -->
     
@@ -28,8 +35,13 @@
 
         <string name="str_inputSubmit"> Confirmar </string>
 
+        <!-- Valores padrões para o card -->
+        <string name="str_rating"> Avaliação: </string>
+        <string name="str_address"> Endereço: Rua dos Bobos, N: 0 </string>
+        <string name="str_number"> +55 9XXXX-XXXX </string>
 
-        <!-- Nomes de restaurantes fictícios para criação dos cards -->
+
+    <!-- Nomes de restaurantes fictícios para criação dos cards -->
             <!-- Sushi -->
             <string name="str_feijoadaSushi"> Feijoada de Sushi </string>
 

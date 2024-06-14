@@ -6,14 +6,20 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.menubh.components.classes.RestaurantClass;
+
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton AddButton;
+    private ArrayList<RestaurantClass> restaurantList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +39,25 @@ public class MainActivity extends AppCompatActivity {
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addScreen = new Intent(MainActivity.this, AddScreenActivity.class);
-
-                startActivity(addScreen);
+                Intent intent = new Intent(MainActivity.this, AddScreenActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            if (data != null) {
+                RestaurantClass newRestaurant = (RestaurantClass) data.getSerializableExtra("newRestaurant");
+                if (newRestaurant != null) {
+                    restaurantList.add(newRestaurant);
+
+                   // TO-DO: Popular a lista & recycler view com o restaurantee
+                }
+            }
+        }
     }
 }
