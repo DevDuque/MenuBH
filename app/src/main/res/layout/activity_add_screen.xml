@@ -57,7 +57,7 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/input"
+            android:background="@drawable/layout_input"
 
             android:hint="@string/str_inputName"
             android:inputType="textPostalAddress"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
 
-            android:background="@drawable/input"
+            android:background="@drawable/layout_input"
 
             android:hint="@string/str_inputAddress"
             android:inputType="textPersonName"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
 
-            android:background="@drawable/input"
+            android:background="@drawable/layout_input"
 
             android:hint="@string/str_inputNumber"
             android:inputType="phone|number"
@@ -103,7 +103,7 @@
         <RelativeLayout
             android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/input"
+            android:background="@drawable/layout_input"
             android:layout_marginTop="20dp">
 
             <TextView android:id="@+id/specialty_input"
@@ -178,7 +178,7 @@
 
             android:layout_marginTop="20dp"
 
-            android:background="@drawable/input">
+            android:background="@drawable/layout_input">
 
             <TextView
                 android:id="@+id/starInput"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
@@ -11,8 +12,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menubh.components.classes.RestaurantClass;
+import com.example.menubh.components.utils.CardAdapter;
 
 import java.util.ArrayList;
 
@@ -20,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageButton AddButton;
     private ArrayList<RestaurantClass> restaurantList = new ArrayList<>();
+
+    private RecyclerView recyclerView;
+    private LinearLayout imgDiv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +41,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        // Inicializa o layout
+        imgDiv = findViewById(R.id.img_div);
+        recyclerView = findViewById(R.id.recyclerView);
+
+        // Configura o RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new CardAdapter(restaurantList));
+
         AddButton = findViewById(R.id.addButton);
 
         AddButton.setOnClickListener(new View.OnClickListener() {
@@ -43,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+
+        updateVisibility();
     }
 
     @Override
@@ -55,9 +72,25 @@ public class MainActivity extends AppCompatActivity {
                 if (newRestaurant != null) {
                     restaurantList.add(newRestaurant);
 
-                   // TO-DO: Popular a lista & recycler view com o restaurantee
+                    // Notifica o recyclerView que algo foi inserido
+                    recyclerView.getAdapter().notifyItemInserted(restaurantList.size() - 1);
+
+                    // Atualiza a visibilidade
+                    updateVisibility();
                 }
             }
+        }
+    }
+
+    private void updateVisibility() {
+        if (restaurantList.isEmpty()) {
+            // Se a lista está vazia, aparece a imagem
+            imgDiv.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            // Se estiver com dados, aparece os cards
+            imgDiv.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
         }
     }
 }
