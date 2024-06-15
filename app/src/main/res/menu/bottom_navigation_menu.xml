@@ -4,7 +4,7 @@
         android:icon="@drawable/img_sushi"
         android:title="" />
     <item
-        android:id="@+id/navigation_grill"
+        android:id="@+id/navigation_barbecue"
         android:icon="@drawable/img_barbecue"
         android:title="" />
 
