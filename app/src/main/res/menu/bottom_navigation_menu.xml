@@ -9,8 +9,8 @@
         android:title="" />
 
     <item
-        android:id="@+id/space"
-        android:icon="@android:color/transparent"
+        android:id="@+id/navigation_favorite"
+        android:icon="@drawable/img_inactivestar"
         android:title="" />
 
     <item

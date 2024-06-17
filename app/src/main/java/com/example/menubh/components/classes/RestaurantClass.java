@@ -9,66 +9,53 @@ public class RestaurantClass implements Serializable {
         this.restaurantNumber = restaurantNumber;
         this.restaurantSpecialty = restaurantSpecialty;
         this.restaurantRating = restaurantRating;
+        this.isFavorite = false;
     }
 
     private String restaurantName;
+    private Boolean isFavorite;
+    private String restaurantAddress;
+    private String restaurantNumber;
+    private String restaurantSpecialty;
+    private int restaurantRating;
 
     public String getRestaurantName() {
         return restaurantName;
     }
 
-    public void setRestaurantName(String restaurantName) {
-        this.restaurantName = restaurantName;
-    }
-
-    private String restaurantAddress;
-
     public String getRestaurantAddress() {
         return restaurantAddress;
     }
-
-    public void setRestaurantAddress(String restaurantAddress) {
-        this.restaurantAddress = restaurantAddress;
-    }
-
-    private String restaurantNumber;
 
     public String getRestaurantNumber() {
         return restaurantNumber;
     }
 
-    public void setRestaurantNumber(String restaurantNumber) {
-        this.restaurantNumber = restaurantNumber;
-    }
-
-    private String restaurantSpecialty;
-
     public String getRestaurantSpecialty() {
         return restaurantSpecialty;
     }
-
-    public void setRestaurantSpecialty(String restaurantSpecialty) {
-        this.restaurantSpecialty = restaurantSpecialty;
-    }
-
-    private int restaurantRating;
 
     public int getRestaurantRating() {
         return restaurantRating;
     }
 
-    public void setRestaurantRating(int restaurantRating) {
-        this.restaurantRating = restaurantRating;
+    public Boolean getFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(Boolean favorite) {
+        isFavorite = favorite;
     }
 
     @Override
     public String toString() {
         return
-                "restaurantName= " + restaurantName + '\'' +
-                ", restaurantAddress= " + restaurantAddress + '\'' +
-                ", restaurantNumber= " + restaurantNumber + '\'' +
-                ", restaurantSpecialty= " + restaurantSpecialty + '\'' +
-                ", restaurantRating= " + restaurantRating +
+                "restaurantName= " + getRestaurantName() + '\'' +
+                ", restaurantAddress= " + getRestaurantAddress() + '\'' +
+                ", restaurantNumber= " + getRestaurantNumber() + '\'' +
+                ", restaurantSpecialty= " + getRestaurantSpecialty() + '\'' +
+                ", restaurantRating= " + getRestaurantRating() + '\'' +
+                ", restaurantIsFavorite= " + getFavorite() + '\'' +
                 '}';
     }
 }

@@ -15,8 +15,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.menubh.components.classes.RestaurantClass;
-import com.example.menubh.components.utils.SpecialtySelectionHelper;
-import com.example.menubh.components.utils.StarRatingHelper;
+import com.example.menubh.components.utils.InputSelectionHelper;
 
 public class AddScreenActivity extends AppCompatActivity {
 
@@ -58,13 +57,13 @@ public class AddScreenActivity extends AppCompatActivity {
 
         for (ImageButton star : stars) {
             star.setOnClickListener(v -> {
-                selectedStar = StarRatingHelper.onStarClick((ImageButton) v, stars);
+                selectedStar = InputSelectionHelper.onStarClick((ImageButton) v, stars);
             });
         }
 
         for (ImageButton button : buttons) {
             button.setOnClickListener(v -> {
-                selectedSpecialty = SpecialtySelectionHelper.onSpecialtyClick((ImageButton) v, buttons, specialties);
+                selectedSpecialty = InputSelectionHelper.onSpecialtyClick((ImageButton) v, buttons, specialties);
             });
         }
 

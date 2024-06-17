@@ -43,13 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Inicializa o layout
         imgDiv = findViewById(R.id.img_div);
+        AddButton = findViewById(R.id.addButton);
         recyclerView = findViewById(R.id.recyclerView);
 
         // Configura o RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CardAdapter(restaurantList));
-
-        AddButton = findViewById(R.id.addButton);
 
         AddButton.setOnClickListener(new View.OnClickListener() {
             @Override

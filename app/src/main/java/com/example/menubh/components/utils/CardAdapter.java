@@ -3,6 +3,7 @@ package com.example.menubh.components.utils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -65,6 +66,28 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
                 holder.starViews[i].setImageResource(R.drawable.mini_inactivestar);
             }
         }
+
+        // Set favorite button image based on isFavorite state
+        if (currentRestaurant.getFavorite()) {
+            holder.favoriteButton.setImageResource(R.drawable.img_activestar); // imagem de favorito ativado
+        } else {
+            holder.favoriteButton.setImageResource(R.drawable.img_inactivestar); // imagem de favorito desativado
+        }
+
+        // Configura o OnClickListener do botão de favoritos
+        holder.favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Inverter o estado de favorito ao clicar no botão
+                boolean isCurrentlyFavorite = currentRestaurant.getFavorite();
+                currentRestaurant.setFavorite(!isCurrentlyFavorite);
+
+                // Notifica o adaptador para atualizar a exibição do botão de favoritos
+                notifyItemChanged(position);
+
+                System.out.println(currentRestaurant.toString());
+            }
+        });
     }
 
     @Override
@@ -76,9 +99,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         public TextView textViewName;
         public TextView textViewAddress;
         public TextView textViewNumber;
-        public TextView textViewSpecialty;
         public ImageView specialtyView;
         public ImageView[] starViews;
+        public ImageButton favoriteButton;
 
         public CardViewHolder(View itemView) {
             super(itemView);
@@ -86,12 +109,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             textViewAddress = itemView.findViewById(R.id.textAddress);
             textViewNumber = itemView.findViewById(R.id.textNumber);
             specialtyView = itemView.findViewById(R.id.specialty_view);
+
             starViews = new ImageView[5];
+
             starViews[0] = itemView.findViewById(R.id.star1);
             starViews[1] = itemView.findViewById(R.id.star2);
             starViews[2] = itemView.findViewById(R.id.star3);
             starViews[3] = itemView.findViewById(R.id.star4);
             starViews[4] = itemView.findViewById(R.id.star5);
+
+            favoriteButton = itemView.findViewById(R.id.favoriteButton);
         }
     }
 }
