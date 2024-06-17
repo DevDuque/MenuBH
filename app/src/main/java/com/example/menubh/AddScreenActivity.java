@@ -23,7 +23,7 @@ public class AddScreenActivity extends AppCompatActivity {
     private ImageButton[] buttons = new ImageButton[4];
     private String[] specialties;
 
-    // Formulário
+    // Formulário de entrada
     private EditText nameInput, addressInput, numberInput;
     private String selectedSpecialty = "";
     private int selectedStar = 0;
@@ -34,6 +34,7 @@ public class AddScreenActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_add_screen);
 
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,41 +43,48 @@ public class AddScreenActivity extends AppCompatActivity {
 
         specialties = getResources().getStringArray(R.array.specialties);
 
-        // Popula o array de botões com as estrelas do [Layout XML]
+        // Inicializa os arrays de estrelas e botões com base nos IDs do layout XML
         stars[0] = findViewById(R.id.star1);
         stars[1] = findViewById(R.id.star2);
         stars[2] = findViewById(R.id.star3);
         stars[3] = findViewById(R.id.star4);
         stars[4] = findViewById(R.id.star5);
 
-        // Popula o array de botões com os botões do [Layout XML]
         buttons[0] = findViewById(R.id.sushi_input);
         buttons[1] = findViewById(R.id.barbecue_input);
         buttons[2] = findViewById(R.id.fish_input);
         buttons[3] = findViewById(R.id.pizza_input);
 
+        // Configura listeners para cliques nas estrelas para selecionar a avaliação
         for (ImageButton star : stars) {
             star.setOnClickListener(v -> {
+                // Chama o helper para selecionar a estrela
                 selectedStar = InputSelectionHelper.onStarClick((ImageButton) v, stars);
             });
         }
 
+        // Configura listeners para cliques nos botões de especialidade para selecionar a especialidade
         for (ImageButton button : buttons) {
             button.setOnClickListener(v -> {
+                // Chama o helper para selecionar a especialidade
                 selectedSpecialty = InputSelectionHelper.onSpecialtyClick((ImageButton) v, buttons, specialties);
             });
         }
 
+        // Configura o listener para o botão de confirmação
         Button confirmButton = findViewById(R.id.btn_confirm);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Chama o método para criar uma instância de restaurante
                 createRestaurantInstance();
             }
         });
     }
 
+    // Método para criar uma instância de restaurante com base nos dados do formulário
     private void createRestaurantInstance() {
+        // Obtém as entradas dos campos de texto
         EditText nameInput = findViewById(R.id.nameInput);
         EditText addressInput = findViewById(R.id.addressInput);
         EditText numberInput = findViewById(R.id.numberInput);
@@ -85,11 +93,14 @@ public class AddScreenActivity extends AppCompatActivity {
         String address = addressInput.getText().toString();
         String number = numberInput.getText().toString();
 
+        // Verifica se todos os campos foram preenchidos corretamente
         if (name.isEmpty() || address.isEmpty() || number.isEmpty() || selectedSpecialty.isEmpty() || selectedStar == 0) {
-            Toast.makeText(AddScreenActivity.this, "Entre todos os campos corretamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(AddScreenActivity.this, "Preencha todos os campos corretamente", Toast.LENGTH_SHORT).show();
         } else {
+            // Cria uma nova instância de RestaurantClass com os dados fornecidos
             RestaurantClass newRestaurant = new RestaurantClass(name, address, number, selectedSpecialty, selectedStar);
 
+            // Prepara o Intent para retornar os dados para a Activity anterior
             Intent resultIntent = new Intent();
             resultIntent.putExtra("newRestaurant", newRestaurant);
             setResult(RESULT_OK, resultIntent);

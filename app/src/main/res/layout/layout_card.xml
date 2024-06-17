@@ -7,7 +7,7 @@
     android:background="@drawable/layout_card"
     android:orientation="vertical"
 
-    android:layout_marginBottom="12dp">
+    android:layout_marginBottom="20dp">
 
     <ImageButton android:id="@+id/favoriteButton"
         android:layout_width="40dp"
