@@ -72,42 +72,9 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 1);
         });
 
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            int itemId = item.getItemId();
+        // Configura o BottomNavigationView
+        setupBottomNavigationView();
 
-            if (itemId == R.id.navigation_sushi) {
-                filterListBySpecialty("sushi");
-                titleText.setText(R.string.str_sushi);
-                return true;
-            } else if (itemId == R.id.navigation_barbecue) {
-                filterListBySpecialty("barbecue");
-                titleText.setText(R.string.str_barbecue);
-                return true;
-            } else if (itemId == R.id.navigation_fish) {
-                filterListBySpecialty("fish");
-                titleText.setText(R.string.str_fish);
-                return true;
-            } else if (itemId == R.id.navigation_pizza) {
-                filterListBySpecialty("pizza");
-                titleText.setText(R.string.str_pizza);
-                return true;
-            }
-
-            return false;
-        });
-
-        updateVisibility();
-    }
-
-    public void filterListBySpecialty(String specialty) {
-        filteredList.clear();
-        for (RestaurantClass restaurant : restaurantList) {
-            if (restaurant.getRestaurantSpecialty().equals(specialty)) {
-                filteredList.add(restaurant);
-                recyclerView.setAdapter(new CardAdapter(filteredList));
-            }
-        }
-        recyclerView.getAdapter().notifyDataSetChanged();
         updateVisibility();
     }
 
@@ -131,9 +98,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void filterListBySpecialty(String specialty) {
+        filteredList.clear();
+        if (specialty == null) {
+            // Mostrar a lista completa se specialty for nulo
+            recyclerView.setAdapter(new CardAdapter(restaurantList));
+            filteredList.addAll(restaurantList); // Adicionar todos os restaurantes à filteredList
+        } else {
+            // Filtrar os restaurantes pela especialidade selecionada
+            for (RestaurantClass restaurant : restaurantList) {
+                if (restaurant.getRestaurantSpecialty().equals(specialty)) {
+                    filteredList.add(restaurant);
+                }
+            }
+            recyclerView.setAdapter(new CardAdapter(filteredList));
+        }
+
+        recyclerView.getAdapter().notifyDataSetChanged();
+        updateVisibility();
+    }
+
+
     private void updateVisibility() {
-        if (restaurantList.isEmpty()) {
-            // Se a lista está vazia, aparece a imagem
+        if (restaurantList.isEmpty() || filteredList.isEmpty()) {
+            // Se a lista completa ou a lista filtrada estiver vazia, aparece a imagem
             imgDiv.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         } else {
@@ -147,5 +135,34 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(list, (r1, r2) -> ascending ? r1.getRestaurantName().compareToIgnoreCase(r2.getRestaurantName())
                 : r2.getRestaurantName().compareToIgnoreCase(r1.getRestaurantName()));
         recyclerView.getAdapter().notifyDataSetChanged();
+    }
+
+    private void setupBottomNavigationView() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            // Inicialmente, nenhum item é selecionado, então titleText.getText() pode ser vazio ou um valor padrão
+            String currentTitle = titleText.getText().toString();
+
+            if (itemId == R.id.navigation_sushi && !currentTitle.equals(getString(R.string.str_sushi))) {
+                filterListBySpecialty("Sushi");
+                titleText.setText(R.string.str_sushi);
+            } else if (itemId == R.id.navigation_barbecue && !currentTitle.equals(getString(R.string.str_barbecue))) {
+                filterListBySpecialty("Barbecue");
+                titleText.setText(R.string.str_barbecue);
+            } else if (itemId == R.id.navigation_fish && !currentTitle.equals(getString(R.string.str_fish))) {
+                filterListBySpecialty("Fish");
+                titleText.setText(R.string.str_fish);
+            } else if (itemId == R.id.navigation_pizza && !currentTitle.equals(getString(R.string.str_pizza))) {
+                filterListBySpecialty("Pizza");
+                titleText.setText(R.string.str_pizza);
+            } else if ((itemId == R.id.navigation_sushi || itemId == R.id.navigation_barbecue || itemId == R.id.navigation_fish || itemId == R.id.navigation_pizza)
+                    && (currentTitle.equals(getString(R.string.str_sushi)) || currentTitle.equals(getString(R.string.str_barbecue)) ||
+                    currentTitle.equals(getString(R.string.str_fish)) || currentTitle.equals(getString(R.string.str_pizza)))) {
+                filterListBySpecialty(null);
+            }
+
+            return true;
+        });
     }
 }
