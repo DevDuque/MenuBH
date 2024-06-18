@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/navigation_sushi"
         android:icon="@drawable/img_sushi"
-        android:title="" />
+        android:title=""
+        />
     <item
         android:id="@+id/navigation_barbecue"
         android:icon="@drawable/img_barbecue"

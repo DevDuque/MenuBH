@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -17,21 +17,30 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menubh.components.classes.RestaurantClass;
 import com.example.menubh.components.utils.CardAdapter;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton AddButton;
     private ArrayList<RestaurantClass> restaurantList = new ArrayList<>();
+    private ArrayList<RestaurantClass> filteredList = new ArrayList<>();
 
-    private RecyclerView recyclerView;
     private LinearLayout imgDiv;
+    private RecyclerView recyclerView;
+    private BottomNavigationView bottomNavigationView;
+
+    private ImageButton ascendingButton;
+    private ImageButton descendingButton;
+    private ImageButton addButton;
+
+    private TextView titleText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         // Responsividade
@@ -43,21 +52,62 @@ public class MainActivity extends AppCompatActivity {
 
         // Inicializa o layout
         imgDiv = findViewById(R.id.img_div);
-        AddButton = findViewById(R.id.addButton);
+        titleText = findViewById(R.id.title_text);
         recyclerView = findViewById(R.id.recyclerView);
+        bottomNavigationView = findViewById(R.id.footer_frame);
+
+        addButton = findViewById(R.id.addButton);
+        ascendingButton = findViewById(R.id.btn_ascending);
+        descendingButton = findViewById(R.id.btn_descending);
 
         // Configura o RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CardAdapter(restaurantList));
 
-        AddButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddScreenActivity.class);
-                startActivityForResult(intent, 1);
-            }
+        ascendingButton.setOnClickListener(v -> sortList(restaurantList, true));
+        descendingButton.setOnClickListener(v -> sortList(restaurantList, false));
+
+        addButton.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AddScreenActivity.class);
+            startActivityForResult(intent, 1);
         });
 
+        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.navigation_sushi) {
+                filterListBySpecialty("sushi");
+                titleText.setText(R.string.str_sushi);
+                return true;
+            } else if (itemId == R.id.navigation_barbecue) {
+                filterListBySpecialty("barbecue");
+                titleText.setText(R.string.str_barbecue);
+                return true;
+            } else if (itemId == R.id.navigation_fish) {
+                filterListBySpecialty("fish");
+                titleText.setText(R.string.str_fish);
+                return true;
+            } else if (itemId == R.id.navigation_pizza) {
+                filterListBySpecialty("pizza");
+                titleText.setText(R.string.str_pizza);
+                return true;
+            }
+
+            return false;
+        });
+
+        updateVisibility();
+    }
+
+    public void filterListBySpecialty(String specialty) {
+        filteredList.clear();
+        for (RestaurantClass restaurant : restaurantList) {
+            if (restaurant.getRestaurantSpecialty().equals(specialty)) {
+                filteredList.add(restaurant);
+                recyclerView.setAdapter(new CardAdapter(filteredList));
+            }
+        }
+        recyclerView.getAdapter().notifyDataSetChanged();
         updateVisibility();
     }
 
@@ -91,5 +141,11 @@ public class MainActivity extends AppCompatActivity {
             imgDiv.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void sortList(ArrayList<RestaurantClass> list, final boolean ascending) {
+        Collections.sort(list, (r1, r2) -> ascending ? r1.getRestaurantName().compareToIgnoreCase(r2.getRestaurantName())
+                : r2.getRestaurantName().compareToIgnoreCase(r1.getRestaurantName()));
+        recyclerView.getAdapter().notifyDataSetChanged();
     }
 }

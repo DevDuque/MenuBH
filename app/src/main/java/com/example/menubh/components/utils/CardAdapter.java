@@ -92,9 +92,6 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
                 // Notifica o adaptador para atualizar a exibição do botão de favoritos
                 notifyItemChanged(position);
-
-                // Exibe no console uma representação do restaurante após a mudança
-                System.out.println(currentRestaurant.toString());
             }
         });
     }
@@ -131,7 +128,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
             starViews[3] = itemView.findViewById(R.id.star4);
             starViews[4] = itemView.findViewById(R.id.star5);
 
-            favoriteButton = itemView.findViewById(R.id.favoriteButton);  // Referência do botão de favoritos
+            favoriteButton = itemView.findViewById(R.id.favoriteButton);
         }
     }
 }

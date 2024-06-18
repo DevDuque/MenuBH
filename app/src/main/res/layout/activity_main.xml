@@ -8,7 +8,9 @@
     android:layout_height="match_parent"
 
     android:background="@color/backgroundColor"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+
+    android:fitsSystemWindows="true">
 
     <!-- Header -->
     <LinearLayout
@@ -137,33 +139,14 @@
         android:background="@color/headerFooter"
 
         app:itemIconSize="45dp"
-        app:itemIconTint="@color/backgroundColor"
         app:labelVisibilityMode="unlabeled"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemIconTint="@drawable/selector_bottom"
 
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
-
-    <!-- Star Button -->
-    <ImageButton
-        android:id="@+id/btn_star"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:layout_marginBottom="36dp"
-
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/str_star"
-        android:padding="8dp"
-
-        android:src="@drawable/img_starbutton"
-        android:translationZ="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 
     <ImageButton
         android:id="@+id/addButton"

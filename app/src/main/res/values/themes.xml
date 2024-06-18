@@ -1,9 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Base application theme -->
     <style name="Base.Theme.MenuBH" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Define a cor da barra de notificação -->
+        <item name="android:statusBarColor">@color/headerFooter</item>
     </style>
 
-    <style name="Theme.MenuBH" parent="Base.Theme.MenuBH" />
+    <!-- Derived theme -->
+    <style name="Theme.MenuBH" parent="Base.Theme.MenuBH">
+        <item name="android:statusBarColor">@color/headerFooter</item>
+    </style>
 </resources>
