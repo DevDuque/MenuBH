@@ -1,11 +1,15 @@
 package com.example.menubh.components.utils;
 
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -92,6 +96,44 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
 
                 // Notifica o adaptador para atualizar a exibição do botão de favoritos
                 notifyItemChanged(position);
+            }
+        });
+
+        // Configura o OnClickListener do endereço para abrir o mapa
+        holder.textViewAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String address = currentRestaurant.getRestaurantAddress();
+                Uri mapUri = Uri.parse("geo:0,0?q=" + Uri.encode(address));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+
+                if (mapIntent.resolveActivity(v.getContext().getPackageManager()) != null) {
+                    v.getContext().startActivity(mapIntent);
+                }
+            }
+        });
+
+        // Configura o OnClickListener do número para abrir o WhatsApp
+        holder.textViewNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String phoneNumber = currentRestaurant.getRestaurantNumber();
+
+                // Formata o número de telefone corretamente para WhatsApp
+                phoneNumber = phoneNumber.replace("+", "").replace(" ", "").replace("-", "");
+
+                // Cria a mensagem
+                String message = "Olá, é do " + currentRestaurant.getRestaurantName() + ", poderia me enviar o cardápio?";
+
+                Uri whatsappUri = Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNumber);
+                Intent whatsappIntent = new Intent(Intent.ACTION_VIEW, whatsappUri);
+
+                try {
+                    v.getContext().startActivity(whatsappIntent);
+                } catch (Exception e) {
+                    Toast.makeText(v.getContext(), "WhatsApp não está instalado", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

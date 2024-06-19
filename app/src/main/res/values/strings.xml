@@ -13,6 +13,8 @@
         <string name="str_fish"> Frutos do Mar  </string>
         <string name="str_pizza"> Pizza </string>
 
+        <string name="str_favorite"> Favoritos </string>
+
         <string-array name="specialties">
             <item>Sushi</item>
             <item>Barbecue</item>

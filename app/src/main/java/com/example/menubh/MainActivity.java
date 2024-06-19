@@ -9,53 +9,43 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.menubh.components.classes.RestaurantClass;
+import com.example.menubh.components.utils.BottomNavigationHelper;
 import com.example.menubh.components.utils.CardAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationHelper.NavigationCallback {
 
+    // Lista principal de restaurantes e lista filtrada (se houver filtro)
     private ArrayList<RestaurantClass> restaurantList = new ArrayList<>();
     private ArrayList<RestaurantClass> filteredList = new ArrayList<>();
+    private boolean isFiltered = false;
 
+    // Elementos da interface
     private LinearLayout imgDiv;
     private RecyclerView recyclerView;
     private BottomNavigationView bottomNavigationView;
-
     private ImageButton ascendingButton;
     private ImageButton descendingButton;
     private ImageButton addButton;
-
     private TextView titleText;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Responsividade
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
-
-        // Inicializa o layout
+        // Inicializa os elementos da interface
         imgDiv = findViewById(R.id.img_div);
         titleText = findViewById(R.id.title_text);
         recyclerView = findViewById(R.id.recyclerView);
         bottomNavigationView = findViewById(R.id.footer_frame);
-
         addButton = findViewById(R.id.addButton);
         ascendingButton = findViewById(R.id.btn_ascending);
         descendingButton = findViewById(R.id.btn_descending);
@@ -64,17 +54,21 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new CardAdapter(restaurantList));
 
-        ascendingButton.setOnClickListener(v -> sortList(restaurantList, true));
-        descendingButton.setOnClickListener(v -> sortList(restaurantList, false));
+        // Configura os botões de ordenação
+        ascendingButton.setOnClickListener(v -> sortList(true));
+        descendingButton.setOnClickListener(v -> sortList(false));
 
+        // Configura o botão de adicionar restaurante
         addButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddScreenActivity.class);
             startActivityForResult(intent, 1);
         });
 
-        // Configura o BottomNavigationView
-        setupBottomNavigationView();
+        // Configura a navegação inferior
+        BottomNavigationHelper bottomNavigationHelper = new BottomNavigationHelper(this, bottomNavigationView, titleText, this);
+        bottomNavigationHelper.setupBottomNavigationView();
 
+        // Atualiza a visibilidade dos elementos
         updateVisibility();
     }
 
@@ -82,87 +76,69 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            if (data != null) {
-                RestaurantClass newRestaurant = (RestaurantClass) data.getSerializableExtra("newRestaurant");
-                if (newRestaurant != null) {
-                    restaurantList.add(newRestaurant);
-
-                    // Notifica o recyclerView que algo foi inserido
-                    recyclerView.getAdapter().notifyItemInserted(restaurantList.size() - 1);
-
-                    // Atualiza a visibilidade
-                    updateVisibility();
-                }
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            // Recebe o restaurante adicionado da tela de adição
+            RestaurantClass newRestaurant = (RestaurantClass) data.getSerializableExtra("newRestaurant");
+            if (newRestaurant != null) {
+                // Adiciona o restaurante à lista e notifica o RecyclerView
+                restaurantList.add(newRestaurant);
+                recyclerView.getAdapter().notifyItemInserted(restaurantList.size() - 1);
+                updateVisibility();
             }
         }
     }
 
+    // Filtra a lista com base na especialidade do restaurante
+    @Override
     public void filterListBySpecialty(String specialty) {
+
         filteredList.clear();
         if (specialty == null) {
-            // Mostrar a lista completa se specialty for nulo
+            // Se a especialidade for nula, mostra todos os restaurantes
             recyclerView.setAdapter(new CardAdapter(restaurantList));
-            filteredList.addAll(restaurantList); // Adicionar todos os restaurantes à filteredList
+            filteredList.addAll(restaurantList);
+            isFiltered = false;
         } else {
-            // Filtrar os restaurantes pela especialidade selecionada
+            // Filtra os restaurantes pela especialidade especificada
             for (RestaurantClass restaurant : restaurantList) {
                 if (restaurant.getRestaurantSpecialty().equals(specialty)) {
                     filteredList.add(restaurant);
                 }
             }
             recyclerView.setAdapter(new CardAdapter(filteredList));
+            isFiltered = true;
         }
-
         recyclerView.getAdapter().notifyDataSetChanged();
         updateVisibility();
     }
 
-
-    private void updateVisibility() {
-        if (restaurantList.isEmpty() || filteredList.isEmpty()) {
-            // Se a lista completa ou a lista filtrada estiver vazia, aparece a imagem
-            imgDiv.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
-        } else {
-            // Se estiver com dados, aparece os cards
-            imgDiv.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+    // Filtra a lista para mostrar apenas os restaurantes marcados como favoritos
+    @Override
+    public void filterFavorites() {
+        filteredList.clear();
+        for (RestaurantClass restaurant : restaurantList) {
+            if (restaurant.getFavorite()) {
+                filteredList.add(restaurant);
+            }
         }
+        recyclerView.setAdapter(new CardAdapter(filteredList));
+        isFiltered = true;
+        recyclerView.getAdapter().notifyDataSetChanged();
+        updateVisibility();
     }
 
-    private void sortList(ArrayList<RestaurantClass> list, final boolean ascending) {
-        Collections.sort(list, (r1, r2) -> ascending ? r1.getRestaurantName().compareToIgnoreCase(r2.getRestaurantName())
+    // Atualiza a visibilidade dos elementos com base na lista de restaurantes e filtros
+    private void updateVisibility() {
+        boolean isEmpty = restaurantList.isEmpty() || (isFiltered && filteredList.isEmpty());
+        imgDiv.setVisibility(isEmpty ? View.VISIBLE : View.GONE);
+        recyclerView.setVisibility(isEmpty ? View.GONE : View.VISIBLE);
+    }
+
+    // Ordena a lista de restaurantes (original ou filtrada) em ordem alfabética
+    private void sortList(boolean ascending) {
+        ArrayList<RestaurantClass> listToSort = isFiltered ? filteredList : restaurantList;
+        Collections.sort(listToSort, (r1, r2) -> ascending ? r1.getRestaurantName().compareToIgnoreCase(r2.getRestaurantName())
                 : r2.getRestaurantName().compareToIgnoreCase(r1.getRestaurantName()));
         recyclerView.getAdapter().notifyDataSetChanged();
-    }
-
-    private void setupBottomNavigationView() {
-        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-            int itemId = item.getItemId();
-
-            // Inicialmente, nenhum item é selecionado, então titleText.getText() pode ser vazio ou um valor padrão
-            String currentTitle = titleText.getText().toString();
-
-            if (itemId == R.id.navigation_sushi && !currentTitle.equals(getString(R.string.str_sushi))) {
-                filterListBySpecialty("Sushi");
-                titleText.setText(R.string.str_sushi);
-            } else if (itemId == R.id.navigation_barbecue && !currentTitle.equals(getString(R.string.str_barbecue))) {
-                filterListBySpecialty("Barbecue");
-                titleText.setText(R.string.str_barbecue);
-            } else if (itemId == R.id.navigation_fish && !currentTitle.equals(getString(R.string.str_fish))) {
-                filterListBySpecialty("Fish");
-                titleText.setText(R.string.str_fish);
-            } else if (itemId == R.id.navigation_pizza && !currentTitle.equals(getString(R.string.str_pizza))) {
-                filterListBySpecialty("Pizza");
-                titleText.setText(R.string.str_pizza);
-            } else if ((itemId == R.id.navigation_sushi || itemId == R.id.navigation_barbecue || itemId == R.id.navigation_fish || itemId == R.id.navigation_pizza)
-                    && (currentTitle.equals(getString(R.string.str_sushi)) || currentTitle.equals(getString(R.string.str_barbecue)) ||
-                    currentTitle.equals(getString(R.string.str_fish)) || currentTitle.equals(getString(R.string.str_pizza)))) {
-                filterListBySpecialty(null);
-            }
-
-            return true;
-        });
     }
 }
