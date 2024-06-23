@@ -24,7 +24,6 @@ public class AddScreenActivity extends AppCompatActivity {
     private String[] specialties;
 
     // Formulário de entrada
-    private EditText nameInput, addressInput, numberInput;
     private String selectedSpecialty = "";
     private int selectedStar = 0;
 
@@ -80,6 +79,17 @@ public class AddScreenActivity extends AppCompatActivity {
                 createRestaurantInstance();
             }
         });
+
+        // Configura o listener para o botão de voltar
+        ImageButton backButton = findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Fecha a activity e retorna á tela anterior
+                finish();
+            }
+        });
+
     }
 
     // Método para criar uma instância de restaurante com base nos dados do formulário

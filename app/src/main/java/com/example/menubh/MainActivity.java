@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.menubh.components.classes.RestaurantClass;
 import com.example.menubh.components.utils.BottomNavigationHelper;
 import com.example.menubh.components.utils.CardAdapter;
+import com.example.menubh.components.utils.RestaurantUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationH
     private LinearLayout imgDiv;
     private RecyclerView recyclerView;
     private BottomNavigationView bottomNavigationView;
+
     private ImageButton ascendingButton;
     private ImageButton descendingButton;
     private ImageButton addButton;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationH
         titleText = findViewById(R.id.title_text);
         recyclerView = findViewById(R.id.recyclerView);
         bottomNavigationView = findViewById(R.id.footer_frame);
+
         addButton = findViewById(R.id.addButton);
         ascendingButton = findViewById(R.id.btn_ascending);
         descendingButton = findViewById(R.id.btn_descending);
@@ -67,6 +70,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationH
         // Configura a navegação inferior
         BottomNavigationHelper bottomNavigationHelper = new BottomNavigationHelper(this, bottomNavigationView, titleText, this);
         bottomNavigationHelper.setupBottomNavigationView();
+
+
+        // Populando a lista com exemplos como pedido.
+        // RestaurantUtils.populateFictionCard(restaurantList);
 
         // Atualiza a visibilidade dos elementos
         updateVisibility();
