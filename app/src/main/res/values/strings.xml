@@ -41,19 +41,4 @@
         <string name="str_rating"> Avaliação: </string>
         <string name="str_address"> Endereço: Rua dos Bobos, N: 0 </string>
         <string name="str_number"> +55 9XXXX-XXXX </string>
-
-
-    <!-- Nomes de restaurantes fictícios para criação dos cards -->
-            <!-- Sushi -->
-            <string name="str_feijoadaSushi"> Feijoada de Sushi </string>
-
-            <!-- Churrasco -->
-            <string name="str_churrasCia"> Churras &amp; Cia </string>
-
-            <!-- Pizza -->
-            <string name="pizzaroma"> Pizzaroma </string>
-
-            <!-- Frutos do Mar -->
-            <string name="brisaMar"> Brisa do Mar </string>
-
 </resources>
